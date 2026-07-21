@@ -19,7 +19,6 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 
 # (list) Application requirements
-# Note: opencv-python-headless -> opencv (p4a recipe)
 requirements = python3,kivy,opencv,numpy
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
@@ -31,7 +30,7 @@ fullscreen = 0
 # (list) Permissions
 android.permissions = CAMERA, INTERNET
 
-# (int) Target Android API, should be as high as possible.
+# (int) Target Android API
 android.api = 31
 
 # (int) Minimum API your APK will support.
@@ -43,7 +42,7 @@ android.ndk = 25b
 # (bool) If True, then accept all NDK licenses
 android.accept_sdk_license = True
 
-# (str) The Android arch to build for, choices: armeabi-v7a, arm64-v8a, x86, x86_64
+# (str) The Android arch to build for
 android.archs = arm64-v8a
 
 [buildozer]
