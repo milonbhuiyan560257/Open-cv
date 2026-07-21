@@ -19,6 +19,7 @@ jobs:
           image: kivy/buildozer:latest
           options: -v ${{ github.workspace }}:/home/user/hostroot
           run: |
+            cd /home/user/hostroot
             buildozer -v android debug
 
       - name: Upload APK Artifact
