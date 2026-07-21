@@ -19,7 +19,7 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 
 # (list) Application requirements
-requirements = python3,kivy,numpy
+requirements = python3,kivy,open cv,numpy
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait
@@ -34,7 +34,7 @@ android.permissions = CAMERA, INTERNET
 android.api = 31
 
 # (int) Minimum API your APK will support.
-android.minapi = 21
+android.minapi = 24
 
 # (str) Android NDK version to use
 android.ndk = 25b
