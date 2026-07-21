@@ -19,8 +19,8 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 
 # (list) Application requirements
-# comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy,opencv-python-headless,numpy
+# Note: opencv-python-headless -> opencv (p4a recipe)
+requirements = python3,kivy,opencv,numpy
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait
@@ -32,7 +32,7 @@ fullscreen = 0
 android.permissions = CAMERA, INTERNET
 
 # (int) Target Android API, should be as high as possible.
-android.api = 33
+android.api = 31
 
 # (int) Minimum API your APK will support.
 android.minapi = 21
