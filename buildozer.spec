@@ -1,4 +1,3 @@
-# (List of requirements)
 [app]
 
 # (str) Title of your application
@@ -10,6 +9,9 @@ package.name = myopencvapp
 # (str) Package domain (needed for android/ios packaging)
 package.domain = org.test
 
+# (str) Application version
+version = 0.1
+
 # (str) Source code where the main.py live
 source.dir = .
 
@@ -19,10 +21,6 @@ source.include_exts = py,png,jpg,kv,atlas
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
 requirements = python3,kivy,opencv-python-headless,numpy
-
-# (str) Custom source folders for requirements
-# Sets custom source for any requirement with recipes or site-packages
-# requirements.source.kivy = ../kivy
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait
@@ -55,4 +53,3 @@ log_level = 2
 
 # (int) Display warning if buildozer is run as root (0 = false, 1 = true)
 warn_on_root = 1
- = python3,kivy,opencv-python-headless,numpy
