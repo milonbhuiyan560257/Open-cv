@@ -1,4 +1,4 @@
-import cv2
+
 import numpy as np
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
