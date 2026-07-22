@@ -19,13 +19,12 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 
 # (list) Application requirements
-# numpy<2.0.0 বা numpy==1.26.4 ব্যবহার করা আবশ্যক
 requirements = python3,kivy,opencv,numpy==1.26.4
 
-# (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
+# (str) Supported orientation
 orientation = portrait
 
-# (bool) Indicate if the application should be fullscreen or not
+# (bool) Fullscreen option
 fullscreen = 0
 
 # (list) Permissions
@@ -34,22 +33,22 @@ android.permissions = CAMERA, INTERNET
 # (int) Target Android API
 android.api = 33
 
-# (int) Minimum API your APK will support.
-android.minapi = 21
+# (int) Minimum API support (NumPy-এর জন্য সর্বনিম্ন 24 হওয়া আবশ্যক)
+android.minapi = 24
 
-# (str) Android NDK version to use
+# (str) Android NDK version
 android.ndk = 25b
 
-# (bool) If True, then accept all NDK licenses
+# (bool) Accept NDK license
 android.accept_sdk_license = True
 
-# (str) The Android arch to build for
+# (str) Architecture
 android.archs = arm64-v8a
 
 [buildozer]
 
-# (int) Log level (0 = error only, 1 = info, 2 = debug (with command output))
+# (int) Log level
 log_level = 2
 
-# (int) Display warning if buildozer is run as root (0 = false, 1 = true)
+# (int) Display warning if buildozer is run as root
 warn_on_root = 1
