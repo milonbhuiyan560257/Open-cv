@@ -32,7 +32,7 @@ fullscreen = 0
 android.permissions = CAMERA, INTERNET
 
 # (int) Target Android API
-android.api = 31
+android.api = 33
 
 # (int) Minimum API your APK will support.
 android.minapi = 21
