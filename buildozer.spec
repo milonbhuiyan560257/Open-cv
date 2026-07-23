@@ -19,12 +19,13 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 
 # (list) Application requirements
-requirements = python3,kivy,opencv,numpy==1.26.4
+# Note: kivy==2.2.1, opencv, numpy==1.26.4 নির্দিষ্ট করে দেওয়া হলো
+requirements = python3,kivy==2.2.1,opencv,numpy==1.26.4
 
-# (str) Orientation
+# (str) Supported orientation
 orientation = portrait
 
-# (bool) Fullscreen
+# (bool) Fullscreen option
 fullscreen = 0
 
 # (list) Permissions
@@ -33,7 +34,7 @@ android.permissions = CAMERA, INTERNET
 # (int) Target Android API
 android.api = 33
 
-# (int) Minimum API support (NumPy-এর জন্য আবশ্যক)
+# (int) Minimum API support (NumPy-এর জন্য সর্বনিম্ন 24 বাধ্যতামূলক)
 android.minapi = 24
 
 # (str) Android NDK version
