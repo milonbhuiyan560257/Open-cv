@@ -1,72 +1,67 @@
-[app]
+name: Build Android APK
 
-# (str) Title of your application
-title = OpenCV Image Classifier
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
 
-# (str) Package name
-package.name = myopencvapp
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-# (str) Package domain
-package.domain = org.test
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
-# (str) Application version
-version = 0.1
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            python3-pip \
+            build-essential \
+            git \
+            ffmpeg \
+            libsdl2-dev \
+            libsdl2-image-dev \
+            libsdl2-mixer-dev \
+            libsdl2-ttf-dev \
+            libportmidi-dev \
+            libswscale-dev \
+            libavformat-dev \
+            libavcodec-dev \
+            zlib1g-dev \
+            libgstreamer1.0 \
+            gstreamer1.0-plugins-base \
+            gstreamer1.0-plugins-good \
+            libffi-dev \
+            libssl-dev \
+            automake \
+            autoconf \
+            libtool \
+            pkg-config \
+            libncurses5-dev \
+            libncursesw5-dev \
+            zip \
+            unzip \
+            zlib1g-dev \
+            openjdk-17-jdk \
+            autoconf \
+            libltdl-dev
 
-# (str) Source code directory
-source.dir = .
+      - name: Install Buildozer
+        run: |
+          pip install buildozer cython
 
-# (list) Source files
-source.include_exts = py,png,jpg,kv,atlas
+      - name: Build APK
+        run: |
+          buildozer android debug
 
-# (list) Application requirements
-requirements = python3,kivy,opencv,numpy==1.26.4
-
-# (str) Orientation
-orientation = portrait
-
-# (bool) Fullscreen
-fullscreen = 0
-
-# (list) Permissions
-android.permissions = CAMERA, INTERNET
-
-# (int) Target Android API
-android.api = 33
-
-# (int) Minimum API support (NumPy-এর জন্য সর্বনিম্ন 24)
-android.minapi = 24
-
-# (str) Android NDK version
-android.ndk = 25b
-
-# (bool) Accept NDK license
-android.accept_sdk_license = True
-
-# (str) Architecture
-android.archs = arm64-v8a
-
-[buildozer]
-
-# (int) Log level
-log_level = 2
-
-# (int) Display warning if buildozer is run as root
-warn_on_root = 1
-android.minapi = 24
-
-# (str) Android NDK version
-android.ndk = 25b
-
-# (bool) Accept NDK license
-android.accept_sdk_license = True
-
-# (str) Architecture
-android.archs = arm64-v8a
-
-[buildozer]
-
-# (int) Log level
-log_level = 2
-
-# (int) Display warning if buildozer is run as root
-warn_on_root = 1
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: bin/*.apk
