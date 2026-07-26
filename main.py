@@ -15,60 +15,61 @@ class ImageClassifierApp(App):
         layout = BoxLayout(
             orientation="vertical",
             padding=10,
-            spacing=10
+            spacing=10,
         )
 
         title = Label(
             text="OpenCV Image Demo",
-            size_hint=(1, 0.1)
+            font_size=24,
+            size_hint=(1, 0.1),
         )
 
         self.image_widget = Image(
-            size_hint=(1, 0.7)
+            size_hint=(1, 0.7),
         )
 
         self.result = Label(
-            text="Button চাপুন",
-            size_hint=(1, 0.1)
+            text="Press the button",
+            size_hint=(1, 0.1),
         )
 
-        btn = Button(
+        button = Button(
             text="Process Image",
-            size_hint=(1, 0.1)
+            size_hint=(1, 0.1),
         )
 
-        btn.bind(on_press=self.process_image)
+        button.bind(on_press=self.process_image)
 
         layout.add_widget(title)
         layout.add_widget(self.image_widget)
         layout.add_widget(self.result)
-        layout.add_widget(btn)
+        layout.add_widget(button)
 
         return layout
 
     def process_image(self, instance):
 
-        img = np.zeros((300, 300, 3), dtype=np.uint8)
+        image = np.zeros((300, 300, 3), dtype=np.uint8)
 
         cv2.circle(
-            img,
+            image,
             (150, 150),
             80,
             (0, 255, 0),
-            -1
+            -1,
         )
 
-        buf = cv2.flip(img, 0).tobytes()
+        image = cv2.flip(image, 0)
 
         texture = Texture.create(
             size=(300, 300),
-            colorfmt="bgr"
+            colorfmt="bgr",
         )
 
         texture.blit_buffer(
-            buf,
+            image.tobytes(),
             colorfmt="bgr",
-            bufferfmt="ubyte"
+            bufferfmt="ubyte",
         )
 
         self.image_widget.texture = texture
