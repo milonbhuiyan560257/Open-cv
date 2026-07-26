@@ -35,6 +35,45 @@ jobs:
         run: |
           pip install buildozer cython
 
+      - name: Install Android SDK Command Line Tools
+        run: |
+          mkdir -p ~/.buildozer/android/platform/android-sdk/cmdline-tools
+          cd ~/.buildozer/android/platform/android-sdk/cmdline-tools
+          wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+          unzip -q commandlinetools-linux-11076708_latest.zip
+          mv cmdline-tools latest
+          rm commandlinetools-linux-11076708_latest.zip
+          export PATH="$PATH:$HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin"
+          yes | sdkmanager --licenses || true
+
+      - name: Pre-accept Android SDK licenses
+        run: |
+          mkdir -p ~/.buildozer/android/platform/android-sdk/licenses
+          echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > ~/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
+          echo "d56f5187479451eabf01fb78af6dfcb131a6481e" >> ~/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
+          echo "84831b9409646a918e30573bab4c9c91346d8abd" > ~/.buildozer/android/platform/android-sdk/licenses/android-sdk-preview-license
+
+      - name: Cache Buildozer dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.buildozer
+          key: ${{ runner.os }}-buildozer-${{ hashFiles('buildozer.spec') }}
+          restore-keys: |
+            ${{ runner.os }}-buildozer-
+
+      - name: Build APK
+        run: |
+          export BUILDOZER_WARN_ON_ROOT=0
+          export PATH="$PATH:$HOME/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin"
+          buildozer -v android debug
+        timeout-minutes: 60
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: bin/*.apk
       - name: Ensure buildozer.spec exists
         run: |
           if [ ! -f buildozer.spec ]; then
