@@ -1,67 +1,76 @@
-name: Build Android APK
+[app]
 
-on:
-  push:
-    branches: [main, master]
-  workflow_dispatch:
+# (str) Title of your application
+title = OpenCV Image Demo
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+# (str) Package name
+package.name = opencvdemo
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
+# (str) Package domain (needed for android/ios packaging)
+package.domain = org.milonbhuiyan
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            python3-pip \
-            build-essential \
-            git \
-            ffmpeg \
-            libsdl2-dev \
-            libsdl2-image-dev \
-            libsdl2-mixer-dev \
-            libsdl2-ttf-dev \
-            libportmidi-dev \
-            libswscale-dev \
-            libavformat-dev \
-            libavcodec-dev \
-            zlib1g-dev \
-            libgstreamer1.0 \
-            gstreamer1.0-plugins-base \
-            gstreamer1.0-plugins-good \
-            libffi-dev \
-            libssl-dev \
-            automake \
-            autoconf \
-            libtool \
-            pkg-config \
-            libncurses5-dev \
-            libncursesw5-dev \
-            zip \
-            unzip \
-            zlib1g-dev \
-            openjdk-17-jdk \
-            autoconf \
-            libltdl-dev
+# (str) Source code where the main.py live
+source.dir = .
 
-      - name: Install Buildozer
-        run: |
-          pip install buildozer cython
+# (list) Source files to include (let empty to include all the files)
+source.include_exts = py,png,jpg,kv,atlas,ttf,txt
 
-      - name: Build APK
-        run: |
-          buildozer android debug
+# (str) Application versioning (method 1)
+version = 0.1
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: android-apk
-          path: bin/*.apk
+# (list) Application requirements
+# IMPORTANT: opencv-python must be here for your OpenCV app to work!
+requirements = python3,kivy==2.2.1,numpy,opencv-python,android
+
+# (list) Supported orientations
+# Valid options are: landscape, portrait, portrait-reverse, landscape-reverse
+orientation = portrait
+
+# (bool) Indicate if the application should be fullscreen or not
+fullscreen = 0
+
+#
+# OSX Specific
+#
+
+# change the major version of python used by the app
+osx.python_version = 3.10
+
+# Kivy version to use
+osx.kivy_version = 2.2.1
+
+#
+# Android specific
+#
+
+# (list) Permissions
+# NOTE: Camera permission needed for OpenCV camera features
+android.permissions = INTERNET, CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE
+
+# (list) The Android archs to build for
+# Choices: armeabi-v7a, arm64-v8a, x86, x86_64
+android.archs = arm64-v8a, armeabi-v7a
+
+# (bool) enables Android auto backup feature (Android API >=23)
+android.allow_backup = True
+
+# (str) The format used to package the app for debug mode (apk or aar).
+android.debug_artifact = apk
+
+#
+# Python for android (p4a) specific
+#
+
+# (str) python-for-android branch to use, defaults to master
+#p4a.branch = master
+
+# (str) Bootstrap to use for android builds
+# p4a.bootstrap = sdl2
+
+[buildozer]
+
+# (int) Log level (0 = error only, 1 = info, 2 = debug (with command output))
+log_level = 2
+
+# (int) Display warning if buildozer is run as root (0 = False, 1 = True)
+warn_on_root = 1
